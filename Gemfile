@@ -15,6 +15,7 @@ group :development do
   gem 'web-console'
   gem 'listen', '~> 3.0.5'
   gem 'better_errors'
+  gem 'dotenv-rails'
 end
 
 group :test do
