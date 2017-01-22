@@ -9,6 +9,7 @@ gem 'slim-rails', '~> 3.1.1'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'settingslogic'
+gem 'dotenv-rails'
 
 group :development, :test do
   gem 'pry-rails'
@@ -19,7 +20,7 @@ group :development do
   gem 'web-console'
   gem 'listen', '~> 3.0.5'
   gem 'better_errors'
-  gem 'dotenv-rails'
+  gem 'binding_of_caller'
 end
 
 group :test do
