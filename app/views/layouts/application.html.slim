@@ -7,8 +7,24 @@ html
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application'
   body
-    header.navbar.navbar-light.global-navbar role="navigation"
-      .navbar-header
-        =link_to 'AwesomeEvents', root_path, class:'navbar-brand'
+    header.navbar.navbar-light.global-header.navbar-toggleable-md role="navigation"
+      .container
+        .navbar-header.mr-auto
+          button.navbar-toggler.navbar-toggler-right type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+            span.sr-only 
+              | Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          = link_to 'AwesomeEvents', root_path, class:'navbar-brand'
+        .collapse.navbar-collapse#bs-example-navbar-collapse-1
+          ul.nav.navbar-nav.navbar-inverse
+            - if logged_in?
+              li = link_to 'ログアウト', logout_path
+            - else
+              li = link_to 'Twiiterでログイン', '/auth/twitter'
     .container
+      - if flash[:notice]
+        .alert.alert-success
+          = flash[:notice]
       = yield
