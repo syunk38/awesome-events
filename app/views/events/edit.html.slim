@@ -2,7 +2,7 @@
 
 - now = Time.zone.now
 .page_header
-  h1 イベント作成
+  h1 イベント情報編集
 
 = form_for(@event, class: 'form-horizontal', role: 'form') do |f|
   - if @event.errors.any?
@@ -25,4 +25,4 @@
   .form-group
     = f.label :content
     = f.text_area :content, class: 'form-control', row: 10
-  = f.submit '作成', class: 'btn btn-default', data: { disable_with: '作成中' }
+  = f.submit '更新', class: 'btn btn-default', data: { disable_with: '更新中' }

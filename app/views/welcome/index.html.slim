@@ -1,2 +1,12 @@
-h1 Welcome#index
-p Find me in app/views/welcome/index.html.slim
+.page-header
+  h1 イベント一覧
+.list-group
+  - if @events.present?
+    - @events.each do |event|
+      = link_to event, class:'list-group-item list-group-item-action' do
+        h4.mb-1
+          = event.name
+        p.text-muted
+          = "#{event.start_time.strftime('%Y/%m/%d %H:%M')} - #{event.end_time.strftime('%Y/%m/%d %H:%M')}"
+  - else
+    p 新着イベントはありません。

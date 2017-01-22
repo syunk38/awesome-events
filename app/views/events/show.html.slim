@@ -1,0 +1,42 @@
+.page-header
+  h1 = @event.name
+.row
+  .col-md-8
+    .card.mb-4
+      .card-header 主催者
+      .card-block
+        = link_to "#{Settings.twitter.url}#{@event.owner.nickname}" do
+          = image_tag @event.owner.image_url
+          = "@#{@event.owner.nickname}"
+    .card.mb-4
+      .card-header 開催時間
+      .card-block
+        = "#{@event.start_time.strftime('%Y/%m/%d %H:%M')} - #{@event.end_time.strftime('%Y/%m/%d %H:%M')}"
+    .card.mb-4
+      .card-header 開催場所
+      .card-block
+        = @event.place
+    .card.mb-4
+      .card-header イベント内容
+      .card-block
+        = @event.content
+  .col-md-4
+    - if @event.created_by? current_user
+      = link_to 'イベントを編集する', edit_event_path(@event), class: 'btn btn-info btn-lg btn-block'
+      = link_to 'イベントを削除する', event_path(@event), class: 'btn btn-danger btn-lg btn-block', method: :delete, data: { confirm: '本当に削除しますか？' }
+    - if logged_in?
+      button.btn.btn-primary.btn-lg.btn-block data-toggle="modal" data-target="#createTicket" 参加する
+      .modal.fade#createTicket tabindex="-1" role="dialog" aria-labelledby="dialogHeader" aria-hidden="true"
+        .modal-dialog
+          .modal-content
+            .modal-header
+              button.close type="button" data-dismiss="modal" aria-hidden="true" &times;
+              h4.modal-title#dialogHeader 参加コメント
+            = form_for(@event.tickets.build, url: event_tickets_path(@event), remote: true) do |f|
+              .modal-body
+                = f.text_field :comment, class: 'form-controll'
+              .modal-footer
+                button type="type" class="btn btn-default" data-dismiss="modal" キャンセル
+                = f.button '送信', class: 'btn btn-primary', data: { disable_with: '送信中…' }
+    - else
+      = link_to '参加する', new_event_ticket_path(@event), class: "btn btn-primary btn-lg btn-block"
